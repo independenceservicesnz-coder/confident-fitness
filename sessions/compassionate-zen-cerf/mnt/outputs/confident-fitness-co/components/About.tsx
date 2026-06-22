@@ -6,13 +6,12 @@ export default function About() {
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
         {/* Photo */}
         <div className="relative">
-          <div className="relative rounded-3xl overflow-hidden shadow-xl h-[480px]">
-            {/* Replace this src with your own photo once you have one */}
+          <div className="relative rounded-3xl overflow-hidden shadow-xl h-[520px]">
             <Image
-              src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&q=80&auto=format&fit=crop"
+              src="/maya.jpg"
               alt="Maya Dickson — Personal Trainer for 50+"
               fill
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
           {/* Badge */}
@@ -25,32 +24,43 @@ export default function About() {
         {/* Content */}
         <div>
           <span className="inline-block bg-[#DDEAF9] text-[#1B3A8C] text-sm font-bold px-5 py-2 rounded-full mb-5 tracking-widest uppercase">
-            About Maya
+            About Me
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0D1F4F] mb-5">
-            A trainer who genuinely gets it
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0D1F4F] mb-6">
+            Hi, I&apos;m Maya
           </h2>
-          <p className="text-gray-600 leading-relaxed mb-5 text-lg">
-            I founded Confident Fitness Co with one goal in mind: to help New Zealanders aged 50 and over feel stronger, more confident, and fully independent in their everyday lives.
-          </p>
-          <p className="text-gray-600 leading-relaxed mb-8 text-lg">
-            I know that walking into a gym can feel daunting — especially if you have health concerns or it&apos;s been a while since you exercised. That&apos;s why I bring the training to you, work at your pace, and focus on what matters most to you.
-          </p>
 
-          <ul className="space-y-3">
+          <div className="space-y-4 text-gray-600 text-lg leading-relaxed">
+            <p>
+              I&apos;m a New Zealand-based personal trainer specialising in fitness and movement for adults 50 and over.
+            </p>
+            <p>
+              My passion for health and performance started early. I represented New Zealand in beach volleyball at the Youth Olympics and World Championships, and spent years understanding what the body is capable of with the right training done consistently.
+            </p>
+            <p>
+              My time at Oceania Healthcare, one of New Zealand&apos;s largest aged care providers, showed me first-hand how much strength, movement, and physical confidence matter to quality of life as we age — and I became passionate about helping people in that space.
+            </p>
+            <p>
+              I hold a NZIS Level 4 Personal Training certification and bring the same work ethic I developed in elite sport to every client — without any of the intimidation. My sessions are built around you: your goals, your starting point, and your pace.
+            </p>
+            <p>
+              I offer online training and in-person sessions with house calls across Auckland — so wherever you are, we can make it work.
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3">
             {[
-              'Qualified Personal Trainer (REPS NZ registered)',
-              'Specialist in 50+ and senior fitness',
-              'Experience with cardiac, post-surgery & chronic conditions',
-              'In-home Auckland & online NZ-wide',
-              'Warm, encouraging, patient approach',
+              '🏐 NZ Youth Olympics — Beach Volleyball',
+              '🏆 World Championships Representative',
+              '🏥 Oceania Healthcare Experience',
+              '📋 NZIS Level 4 Personal Trainer',
+              '🏠 In-home Auckland & Online NZ-wide',
             ].map(item => (
-              <li key={item} className="flex items-start gap-3 text-gray-700">
-                <span className="text-[#1B3A8C] font-bold text-xl flex-shrink-0">✓</span>
-                <span className="text-base">{item}</span>
-              </li>
+              <span key={item} className="bg-white border-2 border-[#DDEAF9] text-[#0D1F4F] text-sm font-semibold px-4 py-2 rounded-full">
+                {item}
+              </span>
             ))}
-          </ul>
+          </div>
 
           <a
             href="tel:0211989086"

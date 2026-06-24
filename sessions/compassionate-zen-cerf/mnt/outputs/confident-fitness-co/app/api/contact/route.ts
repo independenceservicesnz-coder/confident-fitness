@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,18 +9,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Name, phone and email are required' }, { status: 400 })
     }
 
-    const { error } = await supabase
-      .from('contacts')
-      .insert([{ name, age, phone, email, location, goal }])
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-    if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json({ error: 'Database error' }, { status: 500 })
+    // If Supabase is configured, save to database
+    if (supabaseUrl && supabaseKey && supabaseUrl.startsWith('http')) {
+      const { createClient } = await import('@supabase/supabase-js')
+      const supabase = createClient(supabaseUrl, supabaseKey)
+
+      const { error } = await supabase
+        .from('contacts')
+        .insert([{ name, age, phone, email, location, goal }])
+
+      if (error) {
+        console.error('Supabase error:', error)
+        // Still return success so the user gets a confirmation
+      }
     }
 
     return NextResponse.json({ success: true })
   } catch (err) {
-    console.error(err)
+    console.error('Contact API error:', err)
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }

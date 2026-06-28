@@ -14,22 +14,30 @@ export default function Contact() {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }))
   }
 
-  async function submit(e: React.FormEvent) {
-    e.preventDefault()
-    setStatus('loading')
-    try {
-      const res = await fetch('/api/contact', {
+async function submit(e: React.FormEvent) {
+  e.preventDefault()
+  setStatus('loading')
+  try {
+    await Promise.all([
+      // Save to Supabase
+      fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
-      })
-      if (!res.ok) throw new Error()
-      setStatus('success')
-      setForm({ name:'', age:'', phone:'', email:'', location:'', goal:'' })
-    } catch {
-      setStatus('error')
-    }
+      }),
+      // Send email via Formspree
+      fetch('https://formspree.io/f/mqevbrdk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(form),
+      }),
+    ])
+    setStatus('success')
+    setForm({ name:'', age:'', phone:'', email:'', location:'', goal:'' })
+  } catch {
+    setStatus('error')
   }
+}
 
   return (
     <section id="contact" className="py-20 px-6 bg-white">

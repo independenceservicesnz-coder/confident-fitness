@@ -6,7 +6,7 @@ const plans = [
     name: 'Single Session',
     price: '$90',
     period: 'per session',
-    priceId: 'REPLACE_WITH_STRIPE_PRICE_ID_SINGLE',
+    priceId: 'price_1TnQulH9j7DjLnaTTVXpz5vv',
     features: [
       'One 60-minute session',
       'In-home (Auckland) or online',
@@ -19,7 +19,7 @@ const plans = [
     name: 'Monthly Pack',
     price: '$320',
     period: 'per month',
-    priceId: 'REPLACE_WITH_STRIPE_PRICE_ID_MONTHLY',
+    priceId: 'price_1TnQwjH9j7DjLnaTDira1TJK',
     features: [
       '4 sessions per month',
       'Save $40 vs single sessions',
@@ -29,11 +29,11 @@ const plans = [
     ],
     popular: true,
   },
-  {
+    {
     name: 'Online Session',
     price: '$70',
     period: 'per session',
-    priceId: 'REPLACE_WITH_STRIPE_PRICE_ID_ONLINE',
+    priceId: 'price_1TnQy0H9j7DjLnaT9Aisf0M0',
     features: [
       'One 60-minute video session',
       'Available NZ-wide',

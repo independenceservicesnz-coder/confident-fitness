@@ -1,38 +1,31 @@
 export default function HowItWorks() {
-  const steps = [
-    {
-      num: '1',
-      title: 'Give Me a Call',
-      desc: 'Phone or fill in the form below. We have a friendly, no-pressure chat about what you\'re hoping to achieve. No commitment needed.',
-    },
-    {
-      num: '2',
-      title: 'Free First Session',
-      desc: 'We meet — in person or online — for your complimentary first session. I assess where you\'re at and we talk through your goals together.',
-    },
-    {
-      num: '3',
-      title: 'Your Personal Programme',
-      desc: 'I build a programme designed just for you. We work at your pace, progress safely, and celebrate every win along the way.',
-    },
+  const features = [
+    { title: 'Balance & fall prevention', desc: 'Build the stability and quick reactions that help prevent falls.' },
+    { title: 'Everyday strength', desc: 'Stay able to climb stairs, carry the shopping and get up with ease.' },
+    { title: 'Safe, supported progressions', desc: 'Every movement adapted to your body, your conditions and your energy that day.' },
+    { title: 'Confidence again', desc: 'Rebuild trust in your body after an injury, illness or a fall.' },
   ]
 
   return (
-    <section className="py-20 px-6 bg-white">
-      <div className="max-w-6xl mx-auto text-center">
-        <span className="inline-block bg-[#DDEAF9] text-[#1B3A8C] text-sm font-bold px-5 py-2 rounded-full mb-4 tracking-widest uppercase">
-          Simple Start
-        </span>
-        <h2 className="text-3xl md:text-4xl font-bold text-[#0D1F4F] mb-14">How It Works</h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {steps.map(s => (
-            <div key={s.num} className="flex flex-col items-center text-center p-8 rounded-2xl border-2 border-[#DDEAF9] hover:border-[#1B3A8C] transition-colors">
-              <div className="w-16 h-16 bg-[#1B3A8C] text-white rounded-full flex items-center justify-center text-2xl font-extrabold mb-5">
-                {s.num}
+    <section className="max-w-[1180px] mx-auto px-6 py-[clamp(40px,5vw,64px)]">
+      <div className="bg-orange-warm border border-[#EBD9C9] rounded-3xl p-[clamp(30px,4vw,56px)] grid md:grid-cols-2 gap-[clamp(30px,4vw,56px)] items-center">
+        <div>
+          <span className="uppercase tracking-[0.18em] text-xs font-semibold text-[#B5642F]">Specialist focus</span>
+          <h2 className="font-serif font-medium text-[clamp(28px,3.6vw,42px)] leading-[1.1] tracking-tight mt-3.5 mb-4">
+            Personal training built for older adults.
+          </h2>
+          <p className="text-lg leading-[1.7] text-[#5A4F43]">
+            Drawing on my years at Oceania Healthcare, I work with elderly clients to stay strong, steady and independent — with gentle, fully supported sessions in the comfort of their own home.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4">
+          {features.map(f => (
+            <div key={f.title} className="flex gap-3.5 items-start">
+              <span className="flex-none w-2.5 h-2.5 rounded-full bg-orange mt-2" />
+              <div>
+                <div className="font-semibold text-lg text-ink">{f.title}</div>
+                <div className="text-base text-ink-muted leading-snug mt-0.5">{f.desc}</div>
               </div>
-              <h3 className="font-bold text-xl text-[#1B3A8C] mb-3">{s.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>

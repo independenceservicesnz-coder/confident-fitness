@@ -1,48 +1,34 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#0D1F4F] text-white py-14 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 mb-10">
-        {/* Brand */}
+    <footer className="bg-charcoal text-[#C9BFAD]">
+      <div className="max-w-[1180px] mx-auto px-6 py-[clamp(48px,6vw,72px)] pb-10 grid md:grid-cols-3 gap-9">
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-[#1B3A8C] rounded-xl flex items-center justify-center font-extrabold text-base">CF</div>
-            <div className="font-bold text-lg">Confident Fitness Co</div>
+          <div className="flex items-center gap-2.5 mb-4">
+            <span className="w-2.5 h-2.5 rounded-full bg-orange inline-block flex-shrink-0" />
+            <span className="font-serif text-[22px] font-semibold text-cream">Confident Fitness Co.</span>
           </div>
-          <p className="text-white/70 text-base leading-relaxed">
-            Personal training for New Zealanders aged 50 and over. In-home Auckland & online NZ-wide.
+          <p className="m-0 text-base leading-relaxed max-w-[24em]">
+            Feel better. Move stronger. Stay independent. Personal training for adults 50+, in Auckland and online.
           </p>
         </div>
-
-        {/* Links */}
         <div>
-          <h4 className="font-bold mb-4 text-base">Quick Links</h4>
-          <ul className="space-y-2 text-white/70 text-base">
-            {['Services','About','Pricing','FAQ','Contact'].map(l => (
-              <li key={l}><a href={`#${l.toLowerCase()}`} className="hover:text-white transition-colors">{l}</a></li>
-            ))}
-          </ul>
+          <div className="uppercase tracking-[0.14em] text-xs font-semibold text-[#8A7E6C] mb-3.5">Get in touch</div>
+          <div className="flex flex-col gap-2 text-base">
+            <a href="tel:+64211989086" className="text-cream font-semibold no-underline hover:text-orange transition-colors">021 198 9086</a>
+            <a href="mailto:maya.dickson01@gmail.com" className="text-[#C9BFAD] no-underline hover:text-orange transition-colors">maya.dickson01@gmail.com</a>
+            <a href="#book" className="text-[#C9BFAD] no-underline hover:text-orange transition-colors">Book a consultation</a>
+          </div>
         </div>
-
-        {/* Contact */}
         <div>
-          <h4 className="font-bold mb-4 text-base">Contact</h4>
-          <ul className="space-y-2 text-white/70 text-base">
-            <li>📞 <a href="tel:0211989086" className="hover:text-white transition-colors">021 198 9086</a></li>
-            <li>📍 Auckland (in-home) & NZ-wide (online)</li>
-            <li>🕐 Mon–Sat, 7am–7pm</li>
-          </ul>
+          <div className="uppercase tracking-[0.14em] text-xs font-semibold text-[#8A7E6C] mb-3.5">Where</div>
+          <div className="text-base leading-[1.7]">Auckland, New Zealand<br />Online — worldwide</div>
+          <div className="text-sm text-[#8A7E6C] mt-3.5">NZIS Level 4 Certified Personal Trainer</div>
         </div>
       </div>
-
-      {/* CTA banner */}
-      <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-white/50 text-sm">© 2025 Confident Fitness Co · Maya Dickson · All rights reserved</p>
-        <a
-          href="tel:0211989086"
-          className="bg-[#CC1B1B] text-white font-bold px-6 py-3 rounded-full hover:bg-red-700 transition-colors text-sm"
-        >
-          📞 Call Now — First Session Free
-        </a>
+      <div className="border-t border-white/10">
+        <div className="max-w-[1180px] mx-auto px-6 py-5 text-xs text-[#8A7E6C]">
+          © 2026 Confident Fitness Company. All rights reserved.
+        </div>
       </div>
     </footer>
   )

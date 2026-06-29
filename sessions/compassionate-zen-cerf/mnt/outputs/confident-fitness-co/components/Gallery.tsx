@@ -14,7 +14,7 @@ export default function Gallery() {
           <Image src="/gallery1.png" alt="Training session" fill className="object-cover" />
         </div>
         <div className="aspect-[4/3] rounded-[18px] overflow-hidden shadow-[0_24px_48px_-30px_rgba(28,24,19,0.35)] relative bg-border-card">
-          <Image src="/galleryf2.png" alt="Training session" fill className="object-cover object-center" />
+          <Image src="/gallery2.png" alt="Training session" fill className="object-cover object-center" />
         </div>
       </div>
     </section>

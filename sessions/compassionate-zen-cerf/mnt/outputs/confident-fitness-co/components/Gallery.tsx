@@ -11,10 +11,10 @@ export default function Gallery() {
       </div>
       <div className="grid md:grid-cols-2 gap-5">
         <div className="aspect-[4/3] rounded-[18px] overflow-hidden shadow-[0_24px_48px_-30px_rgba(28,24,19,0.35)] relative bg-border-card">
-          <Image src="/maya.jpg" alt="Training session" fill className="object-cover" />
+          <Image src="/gallery1.png" alt="Training session" fill className="object-cover" />
         </div>
         <div className="aspect-[4/3] rounded-[18px] overflow-hidden shadow-[0_24px_48px_-30px_rgba(28,24,19,0.35)] relative bg-border-card">
-          <Image src="/maya.jpg" alt="Training session" fill className="object-cover object-center" />
+          <Image src="/galleryf2.png" alt="Training session" fill className="object-cover object-center" />
         </div>
       </div>
     </section>

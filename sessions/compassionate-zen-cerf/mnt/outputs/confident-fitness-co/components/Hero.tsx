@@ -31,7 +31,7 @@ export default function Hero() {
 
         <div className="relative">
           <div className="aspect-[4/5] w-full rounded-[22px] overflow-hidden shadow-[0_30px_60px_-30px_rgba(28,24,19,0.35)] relative">
-            <Image src="/maya.jpg" alt="Maya Dickson — Personal Trainer for 50+" fill className="object-cover object-top" priority />
+            <Image src="/mayahero.png" alt="Maya Dickson — Personal Trainer for 50+" fill className="object-cover object-top" priority />
           </div>
           <div className="absolute -bottom-4 -left-4 bg-charcoal text-cream px-5 py-4 rounded-[14px] shadow-[0_18px_36px_-18px_rgba(0,0,0,0.5)]">
             <div className="font-serif text-2xl font-semibold leading-none">NZIS Level 4</div>

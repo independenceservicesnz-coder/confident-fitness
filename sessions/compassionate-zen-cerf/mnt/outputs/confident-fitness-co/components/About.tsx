@@ -6,7 +6,7 @@ export default function About() {
       <div className="grid md:grid-cols-2 gap-[clamp(36px,5vw,72px)] items-center">
         <div className="relative">
           <div className="aspect-[4/5] w-full rounded-[22px] overflow-hidden shadow-[0_30px_60px_-34px_rgba(28,24,19,0.4)] relative">
-            <Image src="/maya.jpg" alt="Maya Dickson — Personal Trainer for 50+" fill className="object-cover object-top" />
+            <Image src="/mayaabout.png" alt="Maya Dickson — Personal Trainer for 50+" fill className="object-cover object-top" />
           </div>
         </div>
 

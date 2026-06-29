@@ -13,7 +13,7 @@ export default function About() {
         <div>
           <span className="uppercase tracking-[0.18em] text-xs font-semibold text-ink-subtle">Hi, I&apos;m Maya</span>
           <h2 className="font-serif font-medium text-[clamp(30px,4vw,46px)] leading-[1.1] tracking-tight mt-3.5 mb-6">
-            A trainer who actually gets the body you&apos;re working with.
+            A trainer who actually understands the body you&apos;re working with.
           </h2>
           <div className="text-lg leading-[1.7] text-ink-mid flex flex-col gap-4">
             <p>I&apos;m a New Zealand-based personal trainer specialising in fitness and movement for adults 50 and over.</p>

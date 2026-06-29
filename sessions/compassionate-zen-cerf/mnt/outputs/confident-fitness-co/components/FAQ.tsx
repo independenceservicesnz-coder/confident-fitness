@@ -2,63 +2,42 @@
 import { useState } from 'react'
 
 const faqs = [
-  {
-    q: 'Do I need any equipment?',
-    a: 'No equipment needed. I bring everything required for your in-home sessions. For online sessions, I design exercises using everyday household items or your bodyweight.',
-  },
-  {
-    q: 'What if I have a health condition?',
-    a: 'That\'s exactly why I\'m here. I specialise in working with people who have cardiac conditions, diabetes, arthritis, osteoporosis, and other chronic conditions. I always work within your medical guidelines.',
-  },
-  {
-    q: 'I haven\'t exercised in years — is that okay?',
-    a: 'Absolutely. Many of my clients start from scratch. We begin gently, progress at your pace, and build confidence gradually. There\'s no pressure and no judgment.',
-  },
-  {
-    q: 'How is the first session free?',
-    a: 'Your very first session is complimentary — no payment, no strings attached. It\'s a chance for us to meet, for me to understand your goals, and for you to see if I\'m the right fit.',
-  },
-  {
-    q: 'Can I do online sessions from anywhere in NZ?',
-    a: 'Yes! Online sessions are available to anyone in New Zealand. All you need is a phone, tablet, or computer with a camera and a small space to move.',
-  },
-  {
-    q: 'How do I pay?',
-    a: 'You can pay online via credit or debit card using the buttons on this page, or by bank transfer after your session. Just let me know what works best for you.',
-  },
+  { q: "I haven't exercised in years — is this right for me?", a: "Absolutely. Most of my clients are starting fresh or returning after a long break. We begin gently and build at a pace that feels right for you." },
+  { q: 'Do you come to my home?', a: "Yes. I offer house-call sessions across Auckland, so you can train comfortably in your own space — no gym required." },
+  { q: 'What if I have an injury or health condition?', a: "We'll work around it. With my background in aged care and rehab-focused training, every session is adapted to your body — and I'm happy to coordinate with your healthcare providers." },
+  { q: 'How does online training work?', a: "We meet over video for live sessions, and you get a simple program to follow between calls. All you need is a phone or laptop and a little space to move." },
+  { q: 'What areas of Auckland do you cover?', a: "Most of the wider Auckland region. Send me your suburb when you get in touch and I'll confirm right away." },
 ]
 
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="py-20 px-6 bg-[#F0F5FD]">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="inline-block bg-[#DDEAF9] text-[#1B3A8C] text-sm font-bold px-5 py-2 rounded-full mb-4 tracking-widest uppercase">
-            FAQ
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0D1F4F]">Common Questions</h2>
-        </div>
-
-        <div className="space-y-3">
-          {faqs.map((faq, i) => (
-            <div key={i} className="bg-white rounded-2xl border-2 border-[#DDEAF9] overflow-hidden">
-              <button
-                className="w-full text-left px-7 py-5 flex justify-between items-center gap-4"
-                onClick={() => setOpen(open === i ? null : i)}
-              >
-                <span className="font-bold text-lg text-[#0D1F4F]">{faq.q}</span>
-                <span className="text-[#1B3A8C] text-2xl font-bold flex-shrink-0">{open === i ? '−' : '+'}</span>
-              </button>
-              {open === i && (
-                <div className="px-7 pb-6 text-gray-600 text-base leading-relaxed border-t border-[#DDEAF9] pt-4">
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+    <section id="faq" className="max-w-[840px] mx-auto px-6 py-[clamp(56px,8vw,104px)]">
+      <div className="text-center mb-[clamp(32px,5vw,52px)]">
+        <span className="uppercase tracking-[0.18em] text-xs font-semibold text-ink-subtle">Good to know</span>
+        <h2 className="font-serif font-medium text-[clamp(30px,4vw,46px)] leading-[1.1] tracking-tight mt-3.5">
+          Questions, answered.
+        </h2>
+      </div>
+      <div className="flex flex-col gap-3">
+        {faqs.map((faq, i) => (
+          <div key={i} className="bg-white border border-border-card rounded-[14px] overflow-hidden">
+            <button
+              className="w-full text-left px-6 py-[22px] flex justify-between items-center gap-4"
+              onClick={() => setOpen(open === i ? null : i)}
+            >
+              <span className="font-semibold text-[19px] text-ink">{faq.q}</span>
+              <span
+                className="text-orange text-[26px] font-light flex-shrink-0 leading-none transition-transform duration-200"
+                style={{ transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)' }}
+              >+</span>
+            </button>
+            {open === i && (
+              <p className="m-0 px-6 pb-6 text-[17px] leading-[1.65] text-ink-muted">{faq.a}</p>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   )

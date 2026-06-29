@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; font-size: 18px; }
-  body { font-family: 'Poppins', sans-serif; }
+  html { scroll-behavior: smooth; font-size: 18px; -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Hanken Grotesk', system-ui, sans-serif; background: #F4F0E9; color: #1C1813; }
+  section[id] { scroll-margin-top: 80px; }
+  ::selection { background: #EC5829; color: #fff; }
 }
 
 @layer utilities {
+  .font-serif { font-family: 'Newsreader', Georgia, serif; }
   .text-balance { text-wrap: balance; }
 }

@@ -1,47 +1,36 @@
 'use client'
-import { useState } from 'react'
 
 const plans = [
   {
-    name: 'Single session', label: 'In person', price: '$90', period: '/ session',
-    priceId: 'price_1TnRKLHv7YcsPT76r2ofIvRY',
+    name: 'Single session',
+    label: 'In person',
+    price: '$90',
+    period: '/ session',
+    serviceParam: 'inperson',
     desc: 'A one-on-one session at your home anywhere across Auckland. Perfect to start or to top up.',
     popular: false,
   },
   {
-    name: 'Monthly plan', label: 'In person · ongoing', price: '$320', period: '/ month',
-    priceId: 'price_1TnRKJHv7YcsPT767g8Jwrwi',
+    name: 'Monthly plan',
+    label: 'In person · ongoing',
+    price: '$320',
+    period: '/ month',
+    serviceParam: 'monthly',
     desc: 'Ongoing in-person training plus a programme built around you — the best way to see real, lasting change.',
     popular: true,
   },
   {
-    name: 'Online session', label: 'Online', price: '$70', period: '/ session',
-    priceId: 'price_1TnRKEHv7YcsPT76W9BPeAPt',
-    desc: 'Live coaching over video, wherever you are. Same tailored attention, from your own living room.',
+    name: 'Online session',
+    label: 'Online',
+    price: '$70',
+    period: '/ session',
+    serviceParam: 'online',
+    desc: 'Live one-on-one sessions via video call. Available to anyone in New Zealand.',
     popular: false,
   },
 ]
 
 export default function Pricing() {
-  const [loading, setLoading] = useState<string | null>(null)
-
-  async function handleCheckout(priceId: string, planName: string) {
-    setLoading(planName)
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId }),
-      })
-      const data = await res.json()
-      if (data.url) window.location.href = data.url
-    } catch {
-      alert('Something went wrong. Please call Maya on 021 198 9086.')
-    } finally {
-      setLoading(null)
-    }
-  }
-
   return (
     <section id="pricing" className="max-w-[1180px] mx-auto px-6 py-[clamp(56px,8vw,104px)]">
       <div className="max-w-[34em] mb-[clamp(36px,5vw,56px)]">
@@ -76,17 +65,16 @@ export default function Pricing() {
             <p className={`text-base leading-relaxed flex-1 mb-7 ${plan.popular ? 'text-[#C9BFAD]' : 'text-ink-muted'}`}>
               {plan.desc}
             </p>
-            <button
-              onClick={() => handleCheckout(plan.priceId, plan.name)}
-              disabled={loading === plan.name}
-              className={`w-full py-3.5 rounded-full font-semibold text-base transition-colors disabled:opacity-60 ${
+            <a
+              href={`/?service=${plan.serviceParam}#book`}
+              className={`w-full py-3.5 rounded-full font-semibold text-base transition-colors text-center no-underline block ${
                 plan.popular
                   ? 'bg-orange text-white hover:bg-[#d44a1f]'
                   : 'bg-transparent text-ink border border-border hover:border-ink'
               }`}
             >
-              {loading === plan.name ? 'Redirecting…' : 'Book & pay online'}
-            </button>
+              Choose a time & pay
+            </a>
           </div>
         ))}
       </div>

@@ -1,7 +1,11 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
 
-const SERVICES = ['In-person session ($90)', 'Monthly plan ($320/mo)', 'Online session ($70)']
+const SERVICES = [
+  { label: 'In-person session ($90)',  param: 'inperson', priceId: 'price_1TnRKLHv7YcsPT76r2ofIvRY' },
+  { label: 'Monthly plan ($320/mo)',   param: 'monthly',  priceId: 'price_1TnRKJHv7YcsPT767g8Jwrwi' },
+  { label: 'Online session ($70)',     param: 'online',   priceId: 'price_1TnRKEHv7YcsPT76W9BPeAPt' },
+]
 const TIME_SLOTS = ['07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00']
 
 function nextAvailableDays(count: number) {
@@ -9,12 +13,12 @@ function nextAvailableDays(count: number) {
   const d = new Date()
   d.setDate(d.getDate() + 1)
   while (days.length < count) {
-    if (d.getDay() !== 0) { // skip Sundays
+    if (d.getDay() !== 0) {
       const date = [
-  d.getFullYear(),
-  String(d.getMonth() + 1).padStart(2, '0'),
-  String(d.getDate()).padStart(2, '0'),
-].join('-')
+        d.getFullYear(),
+        String(d.getMonth() + 1).padStart(2, '0'),
+        String(d.getDate()).padStart(2, '0'),
+      ].join('-')
       const label = d.toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short' })
       days.push({ date, label })
     }
@@ -23,14 +27,24 @@ function nextAvailableDays(count: number) {
   return days
 }
 
+function getInitialService() {
+  if (typeof window === 'undefined') return SERVICES[0].label
+  const param = new URLSearchParams(window.location.search).get('service')
+  return SERVICES.find(s => s.param === param)?.label ?? SERVICES[0].label
+}
+
 export default function BookingCalendar() {
   const days = useMemo(() => nextAvailableDays(12), [])
   const [selectedDate, setSelectedDate] = useState(days[0].date)
   const [bookedTimes, setBookedTimes] = useState<string[]>([])
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [loadingSlots, setLoadingSlots] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: SERVICES[0], notes: '' })
-  const [status, setStatus] = useState<'idle'|'loading'|'success'|'error'>('idle')
+  const [form, setForm] = useState({
+    name: '', email: '', phone: '',
+    service: getInitialService(),
+    notes: '',
+  })
+  const [status, setStatus] = useState<'idle'|'loading'|'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
@@ -52,20 +66,41 @@ export default function BookingCalendar() {
     if (!selectedTime) return
     setStatus('loading')
     setErrorMsg('')
+
     try {
-      const res = await fetch('/api/bookings', {
+      // 1. Save the slot in Supabase
+      const bookRes = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, date: selectedDate, time: selectedTime }),
       })
-      const data = await res.json()
-      if (!res.ok) {
-        setErrorMsg(data.error || 'Something went wrong.')
+      const bookData = await bookRes.json()
+      if (!bookRes.ok) {
+        setErrorMsg(bookData.error || 'Something went wrong.')
         setStatus('error')
-        if (res.status === 409) setBookedTimes(b => [...b, selectedTime])
+        if (bookRes.status === 409) setBookedTimes(b => [...b, selectedTime])
         return
       }
-      setStatus('success')
+
+      // 2. Redirect to Stripe checkout
+      const service = SERVICES.find(s => s.label === form.service) ?? SERVICES[0]
+      const checkoutRes = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          priceId: service.priceId,
+          bookingDate: selectedDate,
+          bookingTime: selectedTime,
+          bookingName: form.name,
+        }),
+      })
+      const checkoutData = await checkoutRes.json()
+      if (checkoutData.url) {
+        window.location.href = checkoutData.url
+      } else {
+        setErrorMsg('Payment setup failed. Please call Maya on 021 198 9086.')
+        setStatus('error')
+      }
     } catch {
       setErrorMsg('Something went wrong. Please call Maya on 021 198 9086.')
       setStatus('error')
@@ -74,18 +109,6 @@ export default function BookingCalendar() {
 
   const inputCls = 'font-sans text-base px-[15px] py-[13px] border-[1.5px] border-[#E0D8C8] rounded-[11px] bg-[#FCFAF6] text-ink w-full focus:outline-none focus:border-orange transition-colors'
   const labelCls = 'flex flex-col gap-[7px] text-sm font-semibold text-ink-mid'
-
-  if (status === 'success') {
-    return (
-      <div className="text-center py-8">
-        <div className="w-[54px] h-[54px] rounded-full bg-orange text-white flex items-center justify-center text-[28px] mx-auto mb-4">✓</div>
-        <h3 className="font-serif font-semibold text-[28px] text-ink mb-2.5">Booking requested!</h3>
-        <p className="text-[17px] text-ink-muted leading-relaxed m-0">
-          Your slot on {selectedDate} at {selectedTime} is reserved pending confirmation. Maya will be in touch shortly.
-        </p>
-      </div>
-    )
-  }
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-5">
@@ -158,7 +181,7 @@ export default function BookingCalendar() {
       <label className={labelCls}>
         Service
         <select name="service" value={form.service} onChange={update} className={inputCls}>
-          {SERVICES.map(s => <option key={s}>{s}</option>)}
+          {SERVICES.map(s => <option key={s.label}>{s.label}</option>)}
         </select>
       </label>
 
@@ -175,8 +198,16 @@ export default function BookingCalendar() {
 
       <button type="submit" disabled={!selectedTime || status === 'loading'}
         className="mt-1 bg-orange text-white border-none py-4 rounded-full font-semibold text-[17px] hover:bg-[#d44a1f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full cursor-pointer">
-        {status === 'loading' ? 'Booking…' : selectedTime ? `Book ${selectedDate} at ${selectedTime}` : 'Pick a time above'}
+        {status === 'loading'
+          ? 'Reserving slot…'
+          : selectedTime
+            ? `Book ${selectedDate} at ${selectedTime} & pay`
+            : 'Pick a time above'}
       </button>
+
+      <p className="text-xs text-ink-muted text-center -mt-2">
+        Your slot is reserved then you&apos;ll be taken to secure payment.
+      </p>
     </form>
   )
 }

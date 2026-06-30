@@ -10,7 +10,11 @@ function nextAvailableDays(count: number) {
   d.setDate(d.getDate() + 1)
   while (days.length < count) {
     if (d.getDay() !== 0) { // skip Sundays
-      const date = d.toISOString().slice(0, 10)
+      const date = [
+  d.getFullYear(),
+  String(d.getMonth() + 1).padStart(2, '0'),
+  String(d.getDate()).padStart(2, '0'),
+].join('-')
       const label = d.toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short' })
       days.push({ date, label })
     }
